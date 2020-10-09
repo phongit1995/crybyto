@@ -7,7 +7,10 @@ let app= express();
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use("/user",userRouter)
+app.use("/user",userRouter);
+app.get("/",(req,res)=>{
+    res.send("Phong");
+})
 //Socket Io
 var server = require("http").Server(app);
 var io = require("socket.io")(server);
