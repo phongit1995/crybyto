@@ -18,6 +18,6 @@ io.on("connection",(socket)=>{
         wss.disConnect();
     })
 })
-server.listen(process.env.port||3000,function(){
-    console.log("App Running On Port: "+ (process.env.port||3000))
+server.listen(process.env.PORT||3000,function(){
+    console.log("App Running On Port: "+ (process.env.PORT||3000))
 });
