@@ -1,6 +1,6 @@
 let express = require("express");
 let router = express.Router();
-import {checkGetInfoUser} from './userModel';
+import {checkGetInfoUser,getOrderHistory} from './userModel';
 router.get("/",async(req,res)=>{
     res.send("Phong");
 })
@@ -11,6 +11,17 @@ router.post("/info",async(req,res)=>{
             status:"success",
             data:JSON.parse(data)
         })
+    } catch (error) {
+        return res.json({
+            status:"error",
+            data:error
+        })
+    }
+})
+router.post("/order-history",async(req,res)=>{
+    try {
+        console.log(req.body);
+        await getOrderHistory(req.body.api_key,req.body.secret_key);
     } catch (error) {
         return res.json({
             status:"error",

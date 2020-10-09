@@ -1,6 +1,8 @@
 const request = require("request-promise");
 var SHA256   = require("crypto-js/sha256");
+const crypto = require("crypto-js");
 const API_V1="https://api.crypto.com/v1/";
+const API_V2="https://api.crypto.com/v2/"
 export const checkGetInfoUser =async  (api_key,secret_key)=>{
     let time = new Date().getTime();
     const message ="api_key" + api_key + "time" + time + secret_key ;
@@ -20,5 +22,46 @@ export const checkGetInfoUser =async  (api_key,secret_key)=>{
     let data = await request(options);
     return data ;
 }
+export const getOrderHistory =async (api_key,secret_key)=>{
+    let time = new Date().getTime();
+    let requestData = {
+        id: 12,
+        method: "private/get-order-history",
+        params:{},
+        nonce:time 
+    }
+    var options = {
+        method: 'POST',
+        url:API_V2+"private/get-order-history",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+       body:signRequest(requestData,api_key,secret_key)
+    }
+    console.log(options);
+    let data = await request(options);
+    console.log(data);
+    return data ;
+}
 
-    
+const signRequest = (request, apiKey, apiSecret) => {
+    const { id, method, params, nonce } = request;
+  
+    const paramsString =
+      params == null
+        ? ""
+        : Object.keys(params)
+            .sort()
+            .reduce((a, b) => {
+              return a + b + params[b];
+            }, "");
+  
+    const sigPayload = method + id + apiKey + paramsString + nonce;
+  
+    request.sig = crypto
+      .HmacSHA256(sigPayload, apiSecret)
+      .toString(crypto.enc.Hex);
+  
+    return request;
+};
+  
