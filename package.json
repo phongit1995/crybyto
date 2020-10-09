@@ -1,0 +1,28 @@
+{
+  "name": "crybyto",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon --exec babel-node index.js"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-flow": "^7.9.0",
+    "@babel/register": "^7.9.0",
+    "body-parser": "^1.19.0",
+    "crypto-js": "^4.0.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "form-urlencoded": "^4.2.1",
+    "pako": "^1.0.11",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "socket.io": "^2.3.0",
+    "ws": "^7.3.1"
+  }
+}
