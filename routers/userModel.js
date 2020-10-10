@@ -25,22 +25,22 @@ export const checkGetInfoUser =async  (api_key,secret_key)=>{
 export const getOrderHistory =async (api_key,secret_key)=>{
     let time = new Date().getTime();
     let requestData = {
-        id: 12,
+        id: 11,
         method: "private/get-order-history",
+        api_key:api_key,
         params:{},
-        nonce:time 
+        nonce:time
     }
+    let body = JSON.stringify(signRequest(requestData,api_key,secret_key));
     var options = {
         method: 'POST',
         url:API_V2+"private/get-order-history",
         headers: {
           'Content-Type': 'application/json'
         },
-       body:signRequest(requestData,api_key,secret_key)
+       body:body
     }
-    console.log(options);
     let data = await request(options);
-    console.log(data);
     return data ;
 }
 

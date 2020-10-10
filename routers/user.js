@@ -20,9 +20,15 @@ router.post("/info",async(req,res)=>{
 })
 router.post("/order-history",async(req,res)=>{
     try {
-        console.log(req.body);
-        await getOrderHistory(req.body.api_key,req.body.secret_key);
+    
+        let data = await getOrderHistory(req.body.api_key,req.body.secret_key);
+        //console.log(data);
+        return res.json({
+            status:"success",
+            data:JSON.parse(data)
+        })
     } catch (error) {
+        console.log(error);
         return res.json({
             status:"error",
             data:error

@@ -1,9 +1,11 @@
 require("dotenv").config();
 let express = require("express");
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
+let cors = require("cors");
 let WebSocketTransfer = require("./socket");
 let userRouter = require("./routers/user");
 let app= express();
+app.use(cors());
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
