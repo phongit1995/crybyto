@@ -13,9 +13,9 @@
                 console.log('Connection OPENED');
                 var msg  =
                   {
-                      id: 1602210066267, 
+                      id: 1, 
                       method: "subscribe", 
-                      params: {channels: ["trade.ETH_BTC"]}, 
+                      params: {channels: ["trade.KNC_USDT"]}, 
                       nonce: 1602210066267
                   }
                 this.wss.send(JSON.stringify(msg));
