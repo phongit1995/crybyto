@@ -11,14 +11,7 @@
             });
             this.wss.on('open',()=> {
                 console.log('Connection OPENED');
-                var msg  =
-                  {
-                      id: 1, 
-                      method: "subscribe", 
-                      params: {channels: ["trade.KNC_USDT"]}, 
-                      nonce: 1602210066267
-                  }
-                this.wss.send(JSON.stringify(msg));
+                //this.subscribeChannel("KNC_USDT");
             });
             this.wss.on('close', ()=> {
                 console.log('Connection CLOSED');
@@ -33,6 +26,20 @@
                    this.socket.emit("send-data",JSON.stringify(data));
                 }
             })
+            
+        }
+        async subscribeChannel(channel){
+            const intrasleep = 200 ;
+            let msg = {
+                id: 1, 
+                method: "subscribe", 
+                params: {channels: [`trade.${channel}`,`book.${channel}.150`]}, 
+                nonce: 1602210066267
+            }
+            while(this.wss.readyState==0){
+                await new Promise(resolve => setTimeout(resolve, intrasleep))   
+            }
+            this.wss.send(JSON.stringify( msg));
         }
          disConnect(){
             this.wss.close();

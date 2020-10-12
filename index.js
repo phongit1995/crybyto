@@ -19,9 +19,14 @@ var io = require("socket.io")(server);
 io.on("connection",(socket)=>{
     console.log("Client Connected Server");
     let wss = new WebSocketTransfer(socket);
+    socket.on("subscribe",(data)=>{
+        let channel = data.replace("\/","_");
+        wss.subscribeChannel(channel);
+    })
     socket.on("disconnect",function(){
         wss.disConnect();
     })
+   
 })
 server.listen(process.env.PORT||3000,function(){
     console.log("App Running On Port: "+ (process.env.PORT||3000))
