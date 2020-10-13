@@ -30,14 +30,14 @@
         }
         async subscribeChannel(channel){
             const intrasleep = 200 ;
+            while(this.wss.readyState==0){
+                await new Promise(resolve => setTimeout(resolve, intrasleep))   
+            }
             let msg = {
                 id: 1, 
                 method: "subscribe", 
-                params: {channels: [`trade.${channel}`,`book.${channel}.150`]}, 
-                nonce: 1602210066267
-            }
-            while(this.wss.readyState==0){
-                await new Promise(resolve => setTimeout(resolve, intrasleep))   
+                params: {channels: [`trade.${channel}`,`book.${channel}.10`]}, 
+                nonce: new Date().getTime()
             }
             this.wss.send(JSON.stringify( msg));
         }
