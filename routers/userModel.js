@@ -55,10 +55,7 @@ export const createOrder =async (channel,api_key,secret_key,side,price,quantity)
         side:side,
         type:"LIMIT",
         price:price,
-        quantity:quantity,
-        client_oid: makeUserName(5),
-        time_in_force: "GOOD_TILL_CANCEL",
-        exec_inst: "POST_ONLY"
+        quantity:quantity
       },
       nonce:time
   }
