@@ -22,7 +22,7 @@
                     this.wss.send(JSON.stringify({id:data.id,method: "public/respond-heartbeat"}))
                 }
                 else {
-                    console.log("Send To Client");
+                    //console.log("Send To Client");
                    this.socket.emit("send-data",JSON.stringify(data));
                 }
             })

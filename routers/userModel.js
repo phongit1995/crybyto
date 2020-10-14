@@ -2,7 +2,8 @@ const request = require("request-promise");
 var SHA256   = require("crypto-js/sha256");
 const crypto = require("crypto-js");
 const API_V1="https://api.crypto.com/v1/";
-const API_V2="https://api.crypto.com/v2/"
+const API_V2="https://api.crypto.com/v2/";
+let {makeUserName} = require("./../common/stringhelper")
 export const checkGetInfoUser =async  (api_key,secret_key)=>{
     let time = new Date().getTime();
     const message ="api_key" + api_key + "time" + time + secret_key ;
@@ -55,7 +56,7 @@ export const createOrder =async (channel,api_key,secret_key,side,price,quantity)
         type:"LIMIT",
         price:price,
         quantity:quantity,
-        client_oid: "test order",
+        client_oid: makeUserName(5),
         time_in_force: "GOOD_TILL_CANCEL",
         exec_inst: "POST_ONLY"
       },
