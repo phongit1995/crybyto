@@ -29,7 +29,9 @@ export const getOrderHistory =async (api_key,secret_key)=>{
         id: 11,
         method: "private/get-order-history",
         api_key:api_key,
-        params:{},
+        params:{
+          page_size:200
+        },
         nonce:time
     }
     let body = JSON.stringify(signRequest(requestData,api_key,secret_key));
@@ -43,6 +45,29 @@ export const getOrderHistory =async (api_key,secret_key)=>{
     }
     let data = await request(options);
     return data ;
+}
+export const getOpenOrderHistory =async (api_key,secret_key)=>{
+  let time = new Date().getTime();
+  let requestData = {
+      id: 12,
+      method: "private/get-open-orders",
+      api_key:api_key,
+      params:{
+        page_size:200
+      },
+      nonce:time
+  }
+  let body = JSON.stringify(signRequest(requestData,api_key,secret_key));
+  var options = {
+      method: 'POST',
+      url:API_V2+"private/get-open-orders",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+     body:body
+  }
+  let data = await request(options);
+  return data ;
 }
 export const createOrder =async (channel,api_key,secret_key,side,price,quantity)=>{
     let time = new Date().getTime();

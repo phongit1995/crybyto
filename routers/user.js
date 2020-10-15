@@ -1,6 +1,6 @@
 let express = require("express");
 let router = express.Router();
-import {checkGetInfoUser,getOrderHistory,createOrder} from './userModel';
+import {checkGetInfoUser,getOrderHistory,createOrder,getOpenOrderHistory} from './userModel';
 router.get("/",async(req,res)=>{
     res.send("Phong");
 })
@@ -21,7 +21,6 @@ router.post("/info",async(req,res)=>{
 router.post("/order-history",async(req,res)=>{
     try {
         let data = await getOrderHistory(req.body.api_key,req.body.secret_key);
-        //console.log(data);
         return res.json({
             status:"success",
             data:JSON.parse(data)
@@ -48,7 +47,30 @@ router.post("/create-order",async(req,res)=>{
             data:JSON.parse(resultCreate)
         })
     } catch (error) {
-        
+        return res.json({
+            status:"error",
+            data:error
+        })
+    }
+})
+router.post("/get-open-order",async(req,res)=>{
+    try {
+        let {api_key,secret_key}= req.body;
+        if(typeof api_key=="undefined" || typeof secret_key=="undefined"){
+            return res.json({
+                status:"Validation Fail"
+            }) 
+        }
+        let listOpenOrder = await getOpenOrderHistory(api_key,secret_key);
+        return res.json({
+            status:"success",
+            data:JSON.parse(listOpenOrder)
+        })
+    } catch (error) {
+        return res.json({
+            status:"error",
+            data:error
+        })
     }
 })
 module.exports = router ;
