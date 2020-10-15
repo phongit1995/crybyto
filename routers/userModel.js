@@ -69,6 +69,29 @@ export const getOpenOrderHistory =async (api_key,secret_key)=>{
   let data = await request(options);
   return data ;
 }
+export const getDetialOrder =async (api_key,secret_key,order_id)=>{
+  let time = new Date().getTime();
+  let requestData = {
+      id: 12,
+      method: "private/get-order-detail",
+      api_key:api_key,
+      params:{
+        order_id:order_id
+      },
+      nonce:time
+  }
+  let body = JSON.stringify(signRequest(requestData,api_key,secret_key));
+  var options = {
+      method: 'POST',
+      url:API_V2+"private/get-order-detail",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+     body:body
+  }
+  let data = await request(options);
+  return data ;
+}
 export const createOrder =async (channel,api_key,secret_key,side,price,quantity)=>{
     let time = new Date().getTime();
     let requestData = {
