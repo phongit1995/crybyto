@@ -30,7 +30,7 @@ export const getOrderHistory =async (api_key,secret_key)=>{
         method: "private/get-order-history",
         api_key:api_key,
         params:{
-          page_size:200
+          page_size:200,
         },
         nonce:time
     }
@@ -54,7 +54,6 @@ export const getOpenOrderHistory =async (api_key,secret_key)=>{
       api_key:api_key,
       params:{
         page_size:200,
-        start_ts:1546300800000
       },
       nonce:time
   }
