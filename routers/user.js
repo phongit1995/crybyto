@@ -1,6 +1,6 @@
 let express = require("express");
 let router = express.Router();
-import {checkGetInfoUser,getOrderHistory,createOrder,getOpenOrderHistory,getDetialOrder} from './userModel';
+import {checkGetInfoUser,getOrderHistory,createOrder,getOpenOrderHistory,getDetialOrder ,cancelOrder} from './userModel';
 router.get("/",async(req,res)=>{
     res.send("Phong");
 })
@@ -85,6 +85,26 @@ router.post("/get-order-detail",async(req,res)=>{
         return res.json({
             status:"success",
             data:JSON.parse(detialOrder)
+        })
+    } catch (error) {
+        return res.json({
+            status:"error",
+            data:error
+        })
+    }
+})
+router.post("/cancel-order",async(req,res)=>{
+    try {
+        let {api_key,secret_key,instrument_name,order_id}= req.body;
+        if(typeof api_key=="undefined" || typeof secret_key=="undefined"|| typeof order_id=="undefined" ||typeof instrument_name=="undefined"){
+            return res.json({
+                status:"Validation Fail"
+            }) 
+        }
+        let dataCancel = await cancelOrder(api_key,secret_key,order_id,instrument_name);
+        return res.json({
+            status:"success",
+            data:JSON.parse(dataCancel)
         })
     } catch (error) {
         return res.json({
